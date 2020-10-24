@@ -15,29 +15,27 @@ total_working_hours=0
 totalWorkingDays=0
 totalWage=0
 workDonePerDay=0
-
+#function declaration
+getWorkDonePerDay() {
+        case $1 in
+                0) workDonePerDay=$Part_Time_Hr;;
+                1) workDonePerDay=$Full_Time_Hr;;
+                *) workDonePerDay=0;;
+        esac
+        echo $workDonePerDay
+}
 
       if [ $empPresent -eq $((RANDOM%2)) ]
       then
             echo " Employee is Present"
-
 while [[ $totalWorkingDays -lt $MAX_NO_OF_DAYS && $total_working_hours -lt $MAX_NO_OF_HOURS ]]
 do
         ((totalWorkingDays++));
-        #isFullTime=$((RANDOM%2));
-        #if [ $isFullTime -eq 0 ]       #random value using variable
-        if [ $((RANDOM%2)) -eq 0 ]      #random value generation - optimized
-        then
-                workDonePerDay=$Part_Time_Hr
-        else
-                workDonePerDay=$Full_Time_Hr
-        fi
-
-        total_working_hours=$((total_working_hours + workDonePerDay));
-        tempWage=$((workDonePerDay * EMPLOYEE_RATE_PER_HOUR));
+        workDonePerDay=$(getWorkDonePerDay $((RANDOM%2)) );
+        total_working_hours=$((total_working_hours+workDonePerDay));
+        tempWage=$((workDonePerDay*EMPLOYEE_RATE_PER_HOUR));
         totalWage=$((tempWage+totalWage));
 done
-
 echo "total working hours - " $totalWage
 echo "total days worked - " $totalWorkingDays
 echo "total hours done - " $total_working_hours
