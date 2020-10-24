@@ -18,6 +18,8 @@ workDonePerDay=0
 
 #declaration of array
 declare -a perDayHoursDone
+#declaration of dictionary
+declare -i dayWiseWageStorage
 
 #function declaration
 getWorkDonePerDay() {
@@ -40,13 +42,15 @@ do
         tempWage=$((workDonePerDay*EMPLOYEE_RATE_PER_HOUR));
         totalWage=$((tempWage+totalWage));
          perDayHoursDone[((totalWorkingDays))]=$workDonePerDay
+         dayWiseWageStorage[((totalWorkingDays))]=$tempWage
 done
 echo "total working hours - " $totalWage
 echo "total days worked - " $totalWorkingDays
 echo "total hours done - " $total_working_hours
 
 echo "Hours per day : " ${perDayHoursDone[@]}
-
+echo "wages per day : " ${dayWiseWageStorage[@]}
+echo "days in dictionary : " ${!dayWiseWageStorage[@]}
 
 else
 echo " Employee is Absent"
