@@ -15,6 +15,10 @@ total_working_hours=0
 totalWorkingDays=0
 totalWage=0
 workDonePerDay=0
+
+#declaration of array
+declare -a perDayHoursDone
+
 #function declaration
 getWorkDonePerDay() {
         case $1 in
@@ -35,10 +39,13 @@ do
         total_working_hours=$((total_working_hours+workDonePerDay));
         tempWage=$((workDonePerDay*EMPLOYEE_RATE_PER_HOUR));
         totalWage=$((tempWage+totalWage));
+         perDayHoursDone[((totalWorkingDays))]=$workDonePerDay
 done
 echo "total working hours - " $totalWage
 echo "total days worked - " $totalWorkingDays
 echo "total hours done - " $total_working_hours
+
+echo "Hours per day : " ${perDayHoursDone[@]}
 
 
 else
